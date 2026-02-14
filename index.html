@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3000 Tulips for Promee</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #ffe6f2, #fff8fb);
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer; /* Shows user they can click anywhere */
+}
+
+.card {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 15px 45px rgba(255, 77, 136, 0.2);
+    animation: float 5s ease-in-out infinite;
+    max-width: 350px;
+    z-index: 1000;
+    border: 2px solid #ffdae9;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #ff4d88;
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h1 { color: #ff4d88; margin-bottom: 10px; font-size: 24px; }
+p { color: #555; font-size: 15px; line-height: 1.6; }
+.signature { margin-top: 20px; color: #ff6fa5; font-weight: 600; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+#garden {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.tulip { 
+    position: absolute; 
+    width: 25px; 
+    height: 90px; 
+    animation: sway 4s ease-in-out infinite; 
+    transform-origin: bottom center;
+}
+
+.stem { position: absolute; bottom: 0; left: 11px; width: 4px; height: 60px; background: #3aa655; border-radius: 2px; }
+.leaf { position: absolute; bottom: 20px; width: 20px; height: 12px; background: #2d8a44; border-radius: 25px 0; transform: rotate(-35deg); }
+.leaf.right { left: 6px; transform: rotate(35deg); }
+
+.flower { 
+    position: absolute; 
+    bottom: 55px; 
+    width: 24px; 
+    height: 30px; 
+    border-radius: 50% 50% 40% 40%; 
+    z-index: 2;
+}
+.flower::before, .flower::after { 
+    content: ""; 
+    position: absolute; 
+    width: 24px; 
+    height: 30px; 
+    border-radius: 50%; 
+}
+.flower::before { left: -10px; background: inherit; filter: brightness(1.1); }
+.flower::after { right: -10px; background: inherit; filter: brightness(0.9); }
+
+@keyframes sway {
+    0%, 100% { transform: scale(var(--s)) rotate(-3deg); }
+    50% { transform: scale(var(--s)) rotate(5deg); }
+}
+</style>
+</head>
+<body onclick="startMusic()">
+
+<div class="card">
+    <img src="promee.jpg" alt="Promee" class="profile-img">
+    
+    <h1> 3000 Tulips for you 🌷</h1>
+    <p>
+        Dear Promeawww,<br><br>
+        May your days always bloom like tulips in spring,
+        filled with laughter, warmth, and beautiful memories.<br>
+        Thank you for being such a wonderful friend to me, Beyadop 💕<br><br>
+        You are the real flower to me btw 😉 <br><br>
+        Click on any tulip for the magic :)
+
+    </p>
+    <div class="signature">— Take onkkk onkkk lovee</div>
+</div>
+
+<div id="garden"></div>
+
+<audio id="bgMusic" loop autoplay>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const garden = document.getElementById('garden');
+    const audio = document.getElementById('bgMusic');
+    
+    // Auto-start music logic for browsers
+    function startMusic() {
+        audio.play();
+    }
+
+    // Create 100 Tulips
+    const colors = ['#ff4d88', '#ff6fa5', '#ff85b5', '#ffb3d1', '#fb8bb1'];
+    for (let i = 0; i < 100; i++) {
+        const tulip = document.createElement('div');
+        tulip.className = 'tulip';
+        const xPos = Math.random() * 100; 
+        const yPos = Math.random() * 100;
+        const scale = 0.5 + Math.random() * 0.7;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        tulip.style.left = xPos + '%';
+        tulip.style.top = yPos + '%';
+        tulip.style.setProperty('--s', scale);
+        tulip.style.zIndex = Math.floor(yPos);
+        tulip.style.animationDelay = (Math.random() * -5) + 's';
+
+        tulip.innerHTML = `
+            <div class="stem"></div>
+            <div class="leaf"></div>
+            <div class="leaf right"></div>
+            <div class="flower" style="background:${color}"></div>
+        `;
+        garden.appendChild(tulip);
+    }
+</script>
+
+</body>
+</html>
